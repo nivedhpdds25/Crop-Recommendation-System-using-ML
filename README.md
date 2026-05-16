@@ -104,7 +104,7 @@ To host the application directly from the transient development environment with
 
 ### 🔗 Live Application Access
 The interactive dashboard is served via a secure network gateway during live project demonstrations:
-* **Live Link:** [Launch Web Application](https://panorama-mockup-sustainer.ngrok-free.dev/)
+* **Live Link:** [Launch Web Application](https://crop-recommendation-system-using-ml-4yquix6fyikcjxjkjdxrv5.streamlit.app/)
 * *Note: Because free Ngrok tunnel URLs are generated dynamically upon runtime execution, the link is active exclusively during live presentation sessions. For offline evaluation, please follow the local installation guidelines below.*
 
 ### Application User Interface
