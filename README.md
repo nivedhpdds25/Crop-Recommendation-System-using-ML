@@ -110,4 +110,4 @@ The interactive dashboard is served via a secure network gateway during live pro
 ### Application User Interface
 The screenshot below illustrates the functional Streamlit interface executing a live inference, processing input variables to successfully recommend the optimal crop selection:
 
-![Crop Recommendation System App Interface](Screenshot 2026-05-16 071901.png)
+![Crop Recommendation System App Interface](<Screenshot 2026-05-16 071901.png>)
