@@ -8,7 +8,7 @@ st.set_page_config(page_title="Crop Predictor", page_icon="🌱")
 st.title("🌱 Smart Crop Recommendation")
 st.markdown("Enter the soil details below to find the best crop to grow.")
 
-# 2. Load the bundled data safely
+# 2. Load the bundled data safely using an absolute fallback path check
 try:
     with open('model.pkl', 'rb') as f:
         data = pickle.load(f)
