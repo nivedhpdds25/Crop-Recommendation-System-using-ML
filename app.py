@@ -2,20 +2,25 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load the bundled data
+# 1. MUST BE FIRST: Set up the page config so Streamlit Cloud can initialize paths correctly
+st.set_page_config(page_title="Crop Predictor", page_icon="🌱")
+
+st.title("🌱 Smart Crop Recommendation")
+st.markdown("Enter the soil details below to find the best crop to grow.")
+
+# 2. Load the bundled data safely
 try:
     with open('model.pkl', 'rb') as f:
         data = pickle.load(f)
     model = data['model']
     names = data['names']
-except:
-    st.error("Model file not found! Please run the training cell.")
+except Exception as e:
+    st.error("❌ Model file ('model.pkl') not found! Please ensure 'model.pkl' is uploaded to the main directory of your GitHub repository.")
+    st.stop()  # Stops execution safely so the rest of the app doesn't crash with a NameError
 
-st.set_page_config(page_title="Crop Predictor", page_icon="🌱")
-st.title("🌱 Smart Crop Recommendation")
-st.markdown("Enter the soil details below to find the best crop to grow.")
+st.markdown("---")
 
-# Creating columns for a cleaner UI
+# 3. Creating columns for a cleaner UI
 col1, col2 = st.columns(2)
 
 with col1:
@@ -29,11 +34,17 @@ with col2:
     h = st.number_input("Humidity (%)", 0.0, 100.0, 80.0)
     r = st.number_input("Rainfall (mm)", 0.0, 300.0, 100.0)
 
-if st.button("Predict Best Crop"):
-    features = np.array([[n, p, k, t, h, ph, r]])
-    prediction_index = model.predict(features)[0]
-    
-    # SUCCESS: This line converts the number (0, 1, 2) back to a name (Rice, Maize)
-    predicted_crop = names[prediction_index]
-    
-    st.success(f"### Result: The best crop is **{predicted_crop.upper()}**")
+st.markdown("---")
+
+# 4. Prediction Logic
+if st.button("Predict Best Crop", type="primary"):
+    try:
+        features = np.array([[n, p, k, t, h, ph, r]])
+        prediction_index = model.predict(features)[0]
+        
+        # SUCCESS: Converts the numeric index back to the crop name string
+        predicted_crop = names[prediction_index]
+        
+        st.success(f"### Result: The best crop is **{predicted_crop.upper()}**")
+    except Exception as e:
+        st.error(f"Prediction failed. Error details: {e}")
